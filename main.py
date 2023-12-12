@@ -31,7 +31,7 @@ with st.container(border=False):
             st.write(':rainbow[**Powered BY Google PaLM To Talk To Your MySQL DB**]')   
             st.header('\n')
             
-            question = st.text_input("Question: ")
+            question = st.text_area("Question: ")
 
             col_reponse_empty, col_sql_empty = st.columns([0.2,0.8])
             with col_reponse_empty:
@@ -40,7 +40,6 @@ with st.container(border=False):
                     placeholder1= st.empty()
                     placeholder1.subheader(':grey[*Result*]')
                     
-                        
                     
             with col_sql_empty:
                 with st.container(border=True):
@@ -49,11 +48,10 @@ with st.container(border=False):
                     placeholder2.subheader(':grey[*Query Ran*]')
 
 
-
             if question:
                 chain, return_sql_query_chain = get_few_shot_db_chain()
-                response = chain.run(question)
-                sql_query_returned_palm = return_sql_query_chain(question)
+                response = chain.run(question)               
+                sql_query_returned_palm = return_sql_query_chain(question)                
 
                 #st.header("Answer")
                 col_reponse, col_sql = st.columns([0.2,0.8])
@@ -62,19 +60,28 @@ with st.container(border=False):
                     placeholder1.empty()
                     with st.container(border=True):                    
                         st.subheader("Result", divider=True)
-                        st.write(response)
+                        try:
+                            st.write(response)
+                        except Exception as e:
+                            #response_ex = chain(question)
+                            #st.write(f"{response_ex['result']}")
+                            st.warning(f"Unexpected error occurred: {e}")
+                            pass
 
                 with col_sql_empty:
                     placeholder2.empty()
                     with st.container(border=True):                
                         
                         st.subheader("Query Ran", divider=True)
-                        st.write(f"{sql_query_returned_palm['result']}")
+
+                        try:                    
+                            st.code(f"{sql_query_returned_palm['result']}", language='sql')
+                        except Exception as e:
+                            response_ex = chain(question)
+                            st.code(f"{response_ex['query']}", language='sql')
+                            st.warning(f"Unexpected error occurred: {e}")
+                            pass
+                        
+
         
         
-
-
-
-
-
-

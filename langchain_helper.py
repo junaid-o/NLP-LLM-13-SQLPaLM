@@ -16,10 +16,10 @@ load_dotenv()  # take environment variables from .env (especially openai api key
 
 
 def get_few_shot_db_chain():
-    db_user = "root"
-    db_password = "11%mySqL"
-    db_host = "localhost"
-    db_name = "atliq_tshirts"
+    db_user = os.environ['DB_USER']  #"root"
+    db_password = os.environ['DB_PASSWORD']
+    db_host = os.environ['DB_HOST']
+    db_name = os.environ['DB_NAME']
 
     db = SQLDatabase.from_uri(f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}",
                               sample_rows_in_table_info=3)

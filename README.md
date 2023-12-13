@@ -1,7 +1,7 @@
 
 # SQLPaLM: Talk to MySQL Database In Natural Language
 
-This is an end to end LLM project based on `Google Palm`, `Langchain`, `CheomaDB`. We are building a system that can talk (Query in Natural Language) to MySQL database. 
+This is an end to end LLM project based on `Google Palm`, `Langchain`, `ChromaDB`. We are building a system that can talk (Query in Natural Language) to MySQL database. 
 
 User asks questions in a natural language and the system generates answers by converting those questions to an SQL query and then executing that query on MySQL database.
 
@@ -51,7 +51,10 @@ The system is intelligent enough to generate accurate queries for given question
 ```bash
   GOOGLE_API_KEY="your_api_key_here"
 ```
-5. For database setup, run database/db_creation_atliq_t_shirts.sql in your MySQL workbench
+5. For database setup, run database/db_creation_echo_eden_t_shirts.sql in your MySQL workbench and set the db as default.
+
+> Setup your MySQL and Google PaLM credentials in `.env` file
+
 
 ## Usage
 
